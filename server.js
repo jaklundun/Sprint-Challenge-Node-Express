@@ -85,4 +85,35 @@ server.post('/api/projects', (req, res) => {
         })
 })
 
+//PUT 
+
+server.delete('/api/projects/:id', (req, res) => {
+    let { id } = req.params;
+    projects.remove(id)
+        .then(num => {
+            if (num === 0) {
+                res.status(404).json({ errorMessage: `No project to delete with id of ${id}` });
+                return;
+            }
+            res.json({ success: `${num} item deleted`})
+        })
+        .catch(err => {
+            res.json({ err })
+        })
+})
+ server.delete('/api/actions/:id', (req, res) => {
+    let { id } = req.params;
+    actions.remove(id)
+        .then(num => {
+            if (num === 0) {
+                res.status(404).json({ errorMessage: `No action to delete with id of ${id}` });
+                return;
+            }
+            res.json({ success: `${num} item deleted`})
+        })
+        .catch(err => {
+            res.json({ err })
+        })
+})
+
 server.listen(port, () => console.log(`Server running on port ${port}`));
