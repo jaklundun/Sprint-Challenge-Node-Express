@@ -25,3 +25,6 @@
     * Cross-Origin Resource Sharing. Cors lets us to access data from an outside server from our own server.
 
 <!-- jaklundun -->
+<!-- npm init -y -->
+<!-- yarn add sqlite3 knex -->
+<!-- package json modify `start` script i.e.,"start": "nodemon server.js" -->
