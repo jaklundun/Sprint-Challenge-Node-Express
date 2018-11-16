@@ -31,4 +31,27 @@ server.get('/api/projects', (req, res) => {
 })
 
 
+// GET by ID
+
+server.get('/api/projects/:id', (req, res) => {
+    let { id } = req.params;
+    projects.get(id)
+        .then(project => {
+            res.json({ project })
+        })
+        .catch(err => {
+            res.status(400).json({ errorMessage: `No project found with id of ${id}` });
+        })
+})
+ server.get('/api/actions/:id', (req, res) => {
+    let { id } = req.params;
+    actions.get(id)
+        .then(action => {
+            res.json({ action })
+        })
+        .catch(err => {
+            res.status(400).json({ errorMessage: `No action found with id of ${id}` });
+        })
+})
+
 server.listen(port, () => console.log(`Server running on port ${port}`));
