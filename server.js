@@ -116,4 +116,45 @@ server.delete('/api/projects/:id', (req, res) => {
         })
 })
 
+// PUT
+
+server.put('/api/projects/:id', (req, res) => {
+    let { id } = req.params;
+    let { name, description, completed } = req.body;
+    if (!name || !description){
+        res.status(400).json({ errorMessage: 'Please provide a project name and description (completed flag optional)' });
+        return;
+    }
+    projects.update(id, { name, description, completed })
+        .then(project => {
+            if (!project) {
+                res.status(404).json({ errorMessage: `No project found with id of ${id}` });
+                return;
+            }
+            res.json({ project })
+        })
+        .catch(err => {
+            res.json({ err })
+        })
+})
+ server.put('/api/actions/:id', (req, res) => {
+    let { id } = req.params;
+    let { project_id, description, notes, completed } = req.body;
+    if (!project_id || !description){
+        res.status(400).json({ errorMessage: 'Please provide a project_id and description (notes and completed flag optional)' });
+        return;
+    }
+    actions.update(id, { project_id, description, notes, completed })
+        .then(action => {
+            if (!action) {
+                res.status(404).json({ errorMessage: `No action found with id of ${id}` });
+                return;
+            }
+            res.json({ action })
+        })
+        .catch(err => {
+            res.json({ err })
+        })
+})
+
 server.listen(port, () => console.log(`Server running on port ${port}`));
