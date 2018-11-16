@@ -54,4 +54,35 @@ server.get('/api/projects/:id', (req, res) => {
         })
 })
 
+//POST
+
+server.post('/api/projects', (req, res) => {
+    let { name, description, completed } = req.body;
+    if (!name || !description){
+        res.status(400).json({ errorMessage: 'Please provide a project name and description (completed flag optional)' });
+        return;
+    }
+    projects.insert({ name, description, completed })
+        .then(project => {
+            res.json({ project })
+        })
+        .catch(err => {
+            res.json({ err })
+        })
+})
+ server.post('/api/actions', (req, res) => {
+    let { project_id, description, notes, completed } = req.body;
+    if (!project_id || !description){
+        res.status(400).json({ errorMessage: 'Please provide a project_id and description (notes and completed flag optional)' });
+        return;
+    }
+    actions.insert({ project_id, description, notes, completed })
+        .then(action => {
+            res.json({ action })
+        })
+        .catch(err => {
+            res.json({ err })
+        })
+})
+
 server.listen(port, () => console.log(`Server running on port ${port}`));
